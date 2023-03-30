@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Center } from "@chakra-ui/layout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { io } from "socket.io-client";
+import Chat from "./components/Chat";
+import Home from "./components/Home";
+const socket = io("http://localhost:4000");
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Center bg="gray.400" w="100%" h="100vh">
+        <Routes>
+          <Route path="/" element={<Home socket={socket} />}></Route>
+          <Route path="/chat" element={<Chat socket={socket} />}></Route>
+        </Routes>
+      </Center>
+    </BrowserRouter>
   );
 }
 
